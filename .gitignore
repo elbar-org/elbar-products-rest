@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+/blog_app/.gitignore
+/document_agency/.gitignore
+/gateway/.gitignore
+/security/.gitignore
+/task_management/.gitignore
