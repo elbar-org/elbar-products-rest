@@ -15,10 +15,10 @@ import java.util.UUID;
 @ToString
 @Entity
 @Table(name = "workspace_member")
-public class WorkspaceMember extends Auditable {
+public class WorkspaceMemberEntity extends Auditable {
     @Column(name = "workspace_code")
-    private UUID workspaceCode;
+    private Integer workspaceCode;
     @Column(name = "user_code")
-    private UUID userCode;
+    private Integer userCode;
     private String role;
 }

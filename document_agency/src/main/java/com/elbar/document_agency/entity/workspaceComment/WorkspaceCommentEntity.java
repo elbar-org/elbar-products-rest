@@ -1,4 +1,4 @@
-package com.elbar.document_agency.entity.workspaceImage;
+package com.elbar.document_agency.entity.workspaceComment;
 
 import com.elbar.document_agency.entity.Auditable;
 import lombok.*;
@@ -14,12 +14,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "workspace_image")
-public class WorkspaceImage extends Auditable {
+@Table(name = "workspace_comment")
+public class WorkspaceCommentEntity extends Auditable {
     @Column(name = "workspace_code")
-    private UUID workspaceCode;
-    @Column(name = "background_img")
-    private String backgroundImg;
-    @Column(name = "icon_img")
-    private String iconImg;
+    private Integer workspaceCode;
+    @Column(name = "comment_reply_code")
+    private Integer commentReplyCode;
+    private String comment;
 }

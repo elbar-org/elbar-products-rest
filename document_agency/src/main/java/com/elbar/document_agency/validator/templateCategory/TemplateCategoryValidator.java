@@ -6,8 +6,10 @@ import com.elbar.document_agency.exception.exceptions.InvalidValidationException
 import com.elbar.document_agency.validator.AbstractValidator;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
-public class TemplateCategory extends AbstractValidator<TemplateCategoryCreateDTO, TemplateCategoryUpdateDTO, Integer> {
+public class TemplateCategoryValidator extends AbstractValidator<TemplateCategoryCreateDTO, TemplateCategoryUpdateDTO, UUID> {
     @Override
     public void validOnCreate(TemplateCategoryCreateDTO templateCategoryCreateDTO) throws InvalidValidationException {
 
@@ -19,7 +21,7 @@ public class TemplateCategory extends AbstractValidator<TemplateCategoryCreateDT
     }
 
     @Override
-    public void validateKey(Integer id) throws InvalidValidationException {
+    public void validateKey(UUID id) throws InvalidValidationException {
 
     }
 }

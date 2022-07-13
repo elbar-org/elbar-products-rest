@@ -13,6 +13,6 @@ import javax.persistence.Table;
 @ToString
 @Entity
 @Table(name = "template_category")
-public class TemplateCategory extends Auditable {
+public class TemplateCategoryEntity extends Auditable {
     private String name;
 }

@@ -15,9 +15,9 @@ import java.util.UUID;
 @ToString
 @Entity
 @Table(name = "workspace_template")
-public class WorkspaceTemplate extends Auditable {
+public class WorkspaceTemplateEntity extends Auditable {
     @Column(name = "category_code")
-    private UUID categoryCode;
+    private Integer categoryCode;
     private String name;
     private String content;
 }

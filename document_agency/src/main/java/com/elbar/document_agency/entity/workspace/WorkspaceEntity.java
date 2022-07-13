@@ -15,14 +15,14 @@ import java.util.UUID;
 @ToString
 @Entity
 @Table(name = "workspace")
-public class Workspace extends Auditable {
+public class WorkspaceEntity extends Auditable {
     @Column(name = "parent_code")
-    private UUID parentCode;
+    private Integer parentCode;
     @Column(name = "name", length = 250, nullable = false)
     private String name;
     private String text;
     @Column(name = "visible", nullable = false)
     private String visible;
     @Column(name = "created_with_template")
-    private UUID createdWithTemplate;
+    private Integer createdWithTemplate;
 }
