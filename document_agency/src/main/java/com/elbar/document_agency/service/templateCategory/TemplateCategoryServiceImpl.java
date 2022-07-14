@@ -42,7 +42,7 @@ public class TemplateCategoryServiceImpl extends AbstractService<TemplateCategor
             logger.error("TemplateCategory not found with " + Thread.currentThread().getName());
             throw new NotFoundException("TemplateCategory not found");
         });
-        BeanUtils.copyProperties(DTO, templateCategory, "id");
+        BeanUtils.copyProperties(DTO, templateCategory, "code");
         repository.save(templateCategory);
         logger.info("TemplateCategory updated with " + Thread.currentThread().getName());
     }

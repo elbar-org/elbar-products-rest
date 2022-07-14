@@ -12,7 +12,7 @@ import java.util.Objects;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GenericCriteria {
+public class GenericCriteria implements BaseCriteria {
     private Integer size;
     private Integer page;
     private Sort.Direction direction;

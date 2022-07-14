@@ -10,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class WorkspaceDetailDTO extends GenericDTO {
+public class WorkspaceMemberDetailDTO extends GenericDTO {
     private UUID workspaceCode;
     private UUID userCode;
     private String role;
