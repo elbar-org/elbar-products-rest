@@ -21,8 +21,6 @@ import java.util.UUID;
 @Service
 public class WorkspaceCommentServiceImpl extends AbstractService<WorkspaceCommentRepository, WorkspaceCommentMapper, WorkspaceCommentValidator> implements WorkspaceCommentService {
 
-    Logger logger = LoggerFactory.getLogger(WorkspaceCommentServiceImpl.class);
-
     public WorkspaceCommentServiceImpl(WorkspaceCommentRepository repository, WorkspaceCommentMapper mapper, WorkspaceCommentValidator validator) {
         super(repository, mapper, validator);
     }
@@ -31,7 +29,6 @@ public class WorkspaceCommentServiceImpl extends AbstractService<WorkspaceCommen
     public WorkspaceCommentGetDTO get(UUID key) {
         validator.validateKey(key);
         return mapper.fromGetDTO(repository.findByCode(key).orElseThrow(() -> {
-            logger.error("WorkspaceComment not found");
             throw new NotFoundException("WorkspaceComment not found");
         }));
     }
@@ -40,7 +37,6 @@ public class WorkspaceCommentServiceImpl extends AbstractService<WorkspaceCommen
     public WorkspaceCommentDetailDTO detail(UUID key) {
         validator.validateKey(key);
         return mapper.fromDetailDTO(repository.findByCode(key).orElseThrow(() -> {
-            logger.error("WorkspaceComment not found");
             throw new NotFoundException("WorkspaceComment not found");
         }));
     }
@@ -48,7 +44,6 @@ public class WorkspaceCommentServiceImpl extends AbstractService<WorkspaceCommen
     @Override
     public List<WorkspaceCommentGetDTO> list(WorkspaceCommentCriteria criteria) {
         PageRequest pageRequest = PageRequest.of(criteria.getPage(), criteria.getSize());
-        logger.info("WorkspaceComment list");
         return mapper.fromGetListDTO(repository.findAll(pageRequest).stream().toList());
     }
 
@@ -56,17 +51,14 @@ public class WorkspaceCommentServiceImpl extends AbstractService<WorkspaceCommen
     public void create(WorkspaceCommentCreateDTO DTO) {
         validator.validOnCreate(DTO);
         repository.save(mapper.toCreateDTO(DTO));
-        logger.info("WorkspaceComment created");
     }
 
     @Override
     public void delete(UUID code) {
         validator.validateKey(code);
         WorkspaceCommentEntity workspaceComment = repository.findByCode(code).orElseThrow(() -> {
-            logger.error("WorkspaceComment not found");
             throw new NotFoundException("WorkspaceComment not found");
         });
         repository.delete(workspaceComment);
-        logger.info("WorkspaceComment deleted");
     }
 }

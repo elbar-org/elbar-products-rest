@@ -22,8 +22,6 @@ import java.util.UUID;
 @Service
 public class TemplateCategoryServiceImpl extends AbstractService<TemplateCategoryRepository, TemplateCategoryMapper, TemplateCategoryValidator> implements TemplateCategoryService {
 
-    Logger logger = LoggerFactory.getLogger(TemplateCategoryServiceImpl.class);
-
     public TemplateCategoryServiceImpl(TemplateCategoryRepository repository, TemplateCategoryMapper mapper, TemplateCategoryValidator validator) {
         super(repository, mapper, validator);
     }
@@ -32,37 +30,31 @@ public class TemplateCategoryServiceImpl extends AbstractService<TemplateCategor
     public void create(TemplateCategoryCreateDTO DTO) {
         validator.validOnCreate(DTO);
         repository.save(mapper.toCreateDTO(DTO));
-        logger.info("TemplateCategory created with " + Thread.currentThread().getName());
     }
 
     @Override
     public void update(TemplateCategoryUpdateDTO DTO) {
         validator.validOnUpdate(DTO);
         TemplateCategoryEntity templateCategory = repository.findByCode(DTO.getCode()).orElseThrow(() -> {
-            logger.error("TemplateCategory not found with " + Thread.currentThread().getName());
             throw new NotFoundException("TemplateCategory not found");
         });
         BeanUtils.copyProperties(DTO, templateCategory, "code");
         repository.save(templateCategory);
-        logger.info("TemplateCategory updated with " + Thread.currentThread().getName());
     }
 
     @Override
     public void delete(UUID key) {
         validator.validateKey(key);
         TemplateCategoryEntity templateCategory = repository.findByCode(key).orElseThrow(() -> {
-            logger.error("TemplateCategory not found with " + Thread.currentThread().getName());
             throw new NotFoundException("TemplateCategory not found");
         });
         repository.delete(templateCategory);
-        logger.info("TemplateCategory deleted with " + Thread.currentThread().getName());
     }
 
     @Override
     public TemplateCategoryGetDTO get(UUID code) {
         validator.validateKey(code);
         return mapper.fromGetDTO(repository.findByCode(code).orElseThrow(() -> {
-            logger.error("TemplateCategory not found with " + Thread.currentThread().getName());
             throw new NotFoundException("TemplateCategory not found");
         }));
     }

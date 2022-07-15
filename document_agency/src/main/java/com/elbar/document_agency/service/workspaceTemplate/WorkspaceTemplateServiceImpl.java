@@ -23,8 +23,6 @@ import java.util.UUID;
 @Service
 public class WorkspaceTemplateServiceImpl extends AbstractService<WorkspaceTemplateRepository, WorkspaceTemplateMapper, WorkspaceTemplateValidator> implements WorkspaceTemplateService {
 
-    Logger logger = LoggerFactory.getLogger(WorkspaceTemplateServiceImpl.class);
-
     public WorkspaceTemplateServiceImpl(WorkspaceTemplateRepository repository, WorkspaceTemplateMapper mapper, WorkspaceTemplateValidator validator) {
         super(repository, mapper, validator);
     }
@@ -33,37 +31,31 @@ public class WorkspaceTemplateServiceImpl extends AbstractService<WorkspaceTempl
     public void create(WorkspaceTemplateCreateDTO DTO) {
         validator.validOnCreate(DTO);
         repository.save(mapper.toCreateDTO(DTO));
-        logger.info("WorkspaceTemplate created");
     }
 
     @Override
     public void update(WorkspaceTemplateUpdateDTO DTO) {
         validator.validOnUpdate(DTO);
         WorkspaceTemplateEntity workspaceTemplateEntity = repository.findByCode(DTO.getCode()).orElseThrow(() -> {
-            logger.error("WorkspaceTemplate not found");
             throw new NotFoundException("WorkspaceTemplate not found");
         });
         BeanUtils.copyProperties(DTO, workspaceTemplateEntity, "code", "categoryCode");
         repository.save(workspaceTemplateEntity);
-        logger.info("WorkspaceTemplate updated");
     }
 
     @Override
     public void delete(UUID key) {
         validator.validateKey(key);
         WorkspaceTemplateEntity workspaceTemplateEntity = repository.findByCode(key).orElseThrow(() -> {
-            logger.error("WorkspaceTemplate not found");
             throw new NotFoundException("WorkspaceTemplate not found");
         });
         repository.delete(workspaceTemplateEntity);
-        logger.info("WorkspaceTemplate deleted");
     }
 
     @Override
     public WorkspaceTemplateGetDTO get(UUID key) {
         validator.validateKey(key);
         return mapper.fromGetDTO(repository.findByCode(key).orElseThrow(() -> {
-            logger.error("WorkspaceTemplate not found");
             throw new NotFoundException("WorkspaceTemplate not found");
         }));
     }
@@ -72,7 +64,6 @@ public class WorkspaceTemplateServiceImpl extends AbstractService<WorkspaceTempl
     public WorkspaceTemplateDetailDTO detail(UUID key) {
         validator.validateKey(key);
         return mapper.fromDetailDTO(repository.findByCode(key).orElseThrow(() -> {
-            logger.error("WorkspaceTemplate not found");
             throw new NotFoundException("WorkspaceTemplate not found");
         }));
     }
@@ -80,7 +71,6 @@ public class WorkspaceTemplateServiceImpl extends AbstractService<WorkspaceTempl
     @Override
     public List<WorkspaceTemplateGetDTO> list(WorkspaceTemplateCriteria criteria) {
         PageRequest pageRequest = PageRequest.of(criteria.getPage(), criteria.getSize());
-        logger.error("WorkspaceTemplate list");
         return mapper.fromGetListDTO(repository.findAll(pageRequest).stream().toList());
     }
 }

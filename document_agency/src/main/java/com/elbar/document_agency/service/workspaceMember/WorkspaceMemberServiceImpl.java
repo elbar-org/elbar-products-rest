@@ -10,8 +10,6 @@ import com.elbar.document_agency.mapper.workspaceMember.WorkspaceMemberMapper;
 import com.elbar.document_agency.repository.workspaceMember.WorkspaceMemberRepository;
 import com.elbar.document_agency.service.AbstractService;
 import com.elbar.document_agency.validator.workspaceMember.WorkspaceMemberValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,8 +21,6 @@ import java.util.UUID;
 @Service
 public class WorkspaceMemberServiceImpl extends AbstractService<WorkspaceMemberRepository, WorkspaceMemberMapper, WorkspaceMemberValidator> implements WorkspaceMemberService {
 
-    Logger logger = LoggerFactory.getLogger(WorkspaceMemberServiceImpl.class);
-
     public WorkspaceMemberServiceImpl(WorkspaceMemberRepository repository, WorkspaceMemberMapper mapper, WorkspaceMemberValidator validator) {
         super(repository, mapper, validator);
     }
@@ -33,37 +29,31 @@ public class WorkspaceMemberServiceImpl extends AbstractService<WorkspaceMemberR
     public void create(WorkspaceMemberCreateDTO DTO) {
         validator.validOnCreate(DTO);
         repository.save(mapper.toCreateDTO(DTO));
-        logger.info("WorkspaceMember created");
     }
 
     @Override
     public void update(WorkspaceMemberUpdateDTO DTO) {
         validator.validOnUpdate(DTO);
         WorkspaceMemberEntity workspaceMemberEntity = repository.findByCode(DTO.getCode()).orElseThrow(() -> {
-            logger.error("TemplateCategory not found");
             throw new NotFoundException("TemplateCategory not found");
         });
         BeanUtils.copyProperties(DTO, workspaceMemberEntity, "code", "workspaceCode", "userCode");
         repository.save(workspaceMemberEntity);
-        logger.info("TemplateCategory updated");
     }
 
     @Override
     public void delete(UUID key) {
         validator.validateKey(key);
         WorkspaceMemberEntity workspaceMemberEntity = repository.findByCode(key).orElseThrow(() -> {
-            logger.error("WorkspaceMember not found");
             throw new NotFoundException("WorkspaceMember not found");
         });
         repository.delete(workspaceMemberEntity);
-        logger.info("WorkspaceMember deleted");
     }
 
     @Override
     public WorkspaceMemberGetDTO get(UUID key) {
         validator.validateKey(key);
         return mapper.fromGetDTO(repository.findByCode(key).orElseThrow(() -> {
-            logger.error("WorkspaceMember not found");
             throw new NotFoundException("WorkspaceMember not found");
         }));
     }
@@ -72,7 +62,6 @@ public class WorkspaceMemberServiceImpl extends AbstractService<WorkspaceMemberR
     public WorkspaceMemberDetailDTO detail(UUID key) {
         validator.validateKey(key);
         return mapper.fromDetailDTO(repository.findByCode(key).orElseThrow(() -> {
-            logger.error("WorkspaceMember not found");
             throw new NotFoundException("WorkspaceMember not found");
         }));
     }
@@ -80,7 +69,6 @@ public class WorkspaceMemberServiceImpl extends AbstractService<WorkspaceMemberR
     @Override
     public List<WorkspaceMemberGetDTO> list(WorkspaceMemberCriteria criteria) {
         PageRequest pageRequest = PageRequest.of(criteria.getPage(), criteria.getSize());
-        logger.error("WorkspaceMember list");
         return mapper.fromGetListDTO(repository.findAll(pageRequest).stream().toList());
     }
 }

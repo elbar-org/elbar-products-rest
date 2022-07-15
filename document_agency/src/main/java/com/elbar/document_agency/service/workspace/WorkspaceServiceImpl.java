@@ -23,8 +23,6 @@ import java.util.UUID;
 @Service
 public class WorkspaceServiceImpl extends AbstractService<WorkspaceRepository, WorkspaceMapper, WorkspaceValidator> implements WorkspaceService {
 
-    Logger logger = LoggerFactory.getLogger(WorkspaceServiceImpl.class);
-
     public WorkspaceServiceImpl(WorkspaceRepository repository, WorkspaceMapper mapper, WorkspaceValidator validator) {
         super(repository, mapper, validator);
     }
@@ -33,37 +31,31 @@ public class WorkspaceServiceImpl extends AbstractService<WorkspaceRepository, W
     public void create(WorkspaceCreateDTO DTO) {
         validator.validOnCreate(DTO);
         repository.save(mapper.toCreateDTO(DTO));
-        logger.info("Workspace created with");
     }
 
     @Override
     public void update(WorkspaceUpdateDTO DTO) {
         validator.validOnUpdate(DTO);
         WorkspaceEntity workspaceEntity = repository.findByCode(DTO.getCode()).orElseThrow(() -> {
-            logger.error("Workspace not found");
             throw new NotFoundException("Workspace not found");
         });
         BeanUtils.copyProperties(DTO, workspaceEntity, "code", "parentCode", "createdWithTemplate");
         repository.save(workspaceEntity);
-        logger.info("Workspace updated");
     }
 
     @Override
     public void delete(UUID key) {
         validator.validateKey(key);
         WorkspaceEntity workspaceEntity = repository.findByCode(key).orElseThrow(() -> {
-            logger.error("Workspace not found");
             throw new NotFoundException("Workspace not found");
         });
         repository.delete(workspaceEntity);
-        logger.info("Workspace deleted");
     }
 
     @Override
     public WorkspaceGetDTO get(UUID key) {
         validator.validateKey(key);
         return mapper.fromGetDTO(repository.findByCode(key).orElseThrow(() -> {
-            logger.error("Workspace not found");
             throw new NotFoundException("Workspace not found");
         }));
     }
@@ -72,7 +64,6 @@ public class WorkspaceServiceImpl extends AbstractService<WorkspaceRepository, W
     public WorkspaceDetailDTO detail(UUID key) {
         validator.validateKey(key);
         return mapper.fromDetailDTO(repository.findByCode(key).orElseThrow(() -> {
-            logger.error("Workspace not found");
             throw new NotFoundException("Workspace not found");
         }));
     }
