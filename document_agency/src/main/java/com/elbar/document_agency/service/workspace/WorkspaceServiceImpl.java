@@ -40,12 +40,12 @@ public class WorkspaceServiceImpl extends AbstractService<WorkspaceRepository, W
     public void update(WorkspaceUpdateDTO DTO) {
         validator.validOnUpdate(DTO);
         WorkspaceEntity workspaceEntity = repository.findByCode(DTO.getCode()).orElseThrow(() -> {
-            logger.error("TemplateCategory not found");
-            throw new NotFoundException("TemplateCategory not found");
+            logger.error("Workspace not found");
+            throw new NotFoundException("Workspace not found");
         });
         BeanUtils.copyProperties(DTO, workspaceEntity, "code", "parentCode", "createdWithTemplate");
         repository.save(workspaceEntity);
-        logger.info("TemplateCategory updated");
+        logger.info("Workspace updated");
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.UUID;
 @Table(name = "workspace_image")
 public class WorkspaceImageEntity extends Auditable {
     @Column(name = "workspace_code")
-    private Integer workspaceCode;
+    private UUID workspaceCode;
     @Column(name = "background_img")
     private String backgroundImg;
     @Column(name = "icon_img")

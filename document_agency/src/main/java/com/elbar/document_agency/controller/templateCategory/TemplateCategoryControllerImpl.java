@@ -43,8 +43,8 @@ public class TemplateCategoryControllerImpl extends AbstractController<TemplateC
     }
 
     @Override
-    public ResponseEntity<Data<TemplateCategoryGetDTO>> get(UUID id) {
-        return new ResponseEntity<>(new Data<>(service.get(id)), HttpStatus.OK);
+    public ResponseEntity<Data<TemplateCategoryGetDTO>> get(UUID code) {
+        return new ResponseEntity<>(new Data<>(service.get(code)), HttpStatus.OK);
     }
 
     @Override

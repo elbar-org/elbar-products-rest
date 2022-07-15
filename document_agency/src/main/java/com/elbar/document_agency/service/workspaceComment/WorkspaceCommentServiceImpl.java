@@ -4,7 +4,6 @@ import com.elbar.document_agency.criteria.workspaceComment.WorkspaceCommentCrite
 import com.elbar.document_agency.dto.workspaceComment.WorkspaceCommentCreateDTO;
 import com.elbar.document_agency.dto.workspaceComment.WorkspaceCommentDetailDTO;
 import com.elbar.document_agency.dto.workspaceComment.WorkspaceCommentGetDTO;
-import com.elbar.document_agency.entity.workspace.WorkspaceEntity;
 import com.elbar.document_agency.entity.workspaceComment.WorkspaceCommentEntity;
 import com.elbar.document_agency.mapper.workspaceComment.WorkspaceCommentMapper;
 import com.elbar.document_agency.repository.workspaceComment.WorkspaceCommentRepository;
@@ -49,6 +48,7 @@ public class WorkspaceCommentServiceImpl extends AbstractService<WorkspaceCommen
     @Override
     public List<WorkspaceCommentGetDTO> list(WorkspaceCommentCriteria criteria) {
         PageRequest pageRequest = PageRequest.of(criteria.getPage(), criteria.getSize());
+        logger.info("WorkspaceComment list");
         return mapper.fromGetListDTO(repository.findAll(pageRequest).stream().toList());
     }
 

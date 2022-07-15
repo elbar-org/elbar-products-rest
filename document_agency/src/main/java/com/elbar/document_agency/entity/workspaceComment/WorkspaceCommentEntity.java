@@ -17,8 +17,8 @@ import java.util.UUID;
 @Table(name = "workspace_comment")
 public class WorkspaceCommentEntity extends Auditable {
     @Column(name = "workspace_code")
-    private Integer workspaceCode;
+    private UUID workspaceCode;
     @Column(name = "comment_reply_code")
-    private Integer commentReplyCode;
+    private UUID commentReplyCode;
     private String comment;
 }

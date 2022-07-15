@@ -17,12 +17,12 @@ import java.util.UUID;
 @Table(name = "workspace")
 public class WorkspaceEntity extends Auditable {
     @Column(name = "parent_code")
-    private Integer parentCode;
+    private UUID parentCode;
     @Column(name = "name", length = 250, nullable = false)
     private String name;
     private String text;
     @Column(name = "visible", nullable = false)
     private String visible;
     @Column(name = "created_with_template")
-    private Integer createdWithTemplate;
+    private UUID createdWithTemplate;
 }
