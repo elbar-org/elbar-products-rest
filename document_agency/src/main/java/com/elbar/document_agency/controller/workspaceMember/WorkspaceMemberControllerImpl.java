@@ -54,6 +54,6 @@ public class WorkspaceMemberControllerImpl extends AbstractController<WorkspaceM
 
     @Override
     public ResponseEntity<Data<List<WorkspaceMemberGetDTO>>> list(WorkspaceMemberCriteria criteria) {
-        return new ResponseEntity<>(new Data<>(service.list(criteria)), HttpStatus.OK);
+        return new ResponseEntity<>(new Data<>(service.list(criteria), service.count()), HttpStatus.OK);
     }
 }

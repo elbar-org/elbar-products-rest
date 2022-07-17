@@ -64,4 +64,9 @@ public class TemplateCategoryServiceImpl extends AbstractService<TemplateCategor
         PageRequest pageRequest = PageRequest.of(criteria.getPage(), criteria.getSize());
         return mapper.fromGetListDTO(repository.findAll(pageRequest).stream().toList());
     }
+
+    @Override
+    public Long count() {
+        return repository.count();
+    }
 }

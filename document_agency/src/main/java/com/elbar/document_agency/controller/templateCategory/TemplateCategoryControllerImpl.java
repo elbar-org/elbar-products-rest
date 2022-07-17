@@ -7,7 +7,6 @@ import com.elbar.document_agency.dto.templateCategory.TemplateCategoryGetDTO;
 import com.elbar.document_agency.dto.templateCategory.TemplateCategoryUpdateDTO;
 import com.elbar.document_agency.response.Data;
 import com.elbar.document_agency.service.templateCategory.TemplateCategoryService;
-import com.elbar.document_agency.service.templateCategory.TemplateCategoryServiceImpl;
 import com.elbar.document_agency.utils.BaseUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +49,6 @@ public class TemplateCategoryControllerImpl extends AbstractController<TemplateC
 
     @Override
     public ResponseEntity<Data<List<TemplateCategoryGetDTO>>> list(TemplateCategoryCriteria criteria) {
-        return new ResponseEntity<>(new Data<>(service.list(criteria)), HttpStatus.OK);
+        return new ResponseEntity<>(new Data<>(service.list(criteria), service.count()), HttpStatus.OK);
     }
 }

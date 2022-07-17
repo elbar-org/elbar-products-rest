@@ -10,8 +10,6 @@ import com.elbar.document_agency.mapper.workspaceTemplate.WorkspaceTemplateMappe
 import com.elbar.document_agency.repository.workspaceTemplate.WorkspaceTemplateRepository;
 import com.elbar.document_agency.service.AbstractService;
 import com.elbar.document_agency.validator.workspaceTemplate.WorkspaceTemplateValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -69,8 +67,20 @@ public class WorkspaceTemplateServiceImpl extends AbstractService<WorkspaceTempl
     }
 
     @Override
+    public List<WorkspaceTemplateGetDTO> getListWithCategoryCode(UUID code) {
+        return mapper.fromGetListDTO(repository.findAllByCategoryCodeEquals(code));
+    }
+
+    @Override
+    public Long count() {
+        return repository.count();
+    }
+
+    @Override
     public List<WorkspaceTemplateGetDTO> list(WorkspaceTemplateCriteria criteria) {
         PageRequest pageRequest = PageRequest.of(criteria.getPage(), criteria.getSize());
         return mapper.fromGetListDTO(repository.findAll(pageRequest).stream().toList());
     }
+
+
 }

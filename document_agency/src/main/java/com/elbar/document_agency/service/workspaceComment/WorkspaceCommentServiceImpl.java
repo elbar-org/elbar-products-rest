@@ -9,8 +9,6 @@ import com.elbar.document_agency.mapper.workspaceComment.WorkspaceCommentMapper;
 import com.elbar.document_agency.repository.workspaceComment.WorkspaceCommentRepository;
 import com.elbar.document_agency.service.AbstractService;
 import com.elbar.document_agency.validator.workspaceComment.WorkspaceCommentValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -60,5 +58,10 @@ public class WorkspaceCommentServiceImpl extends AbstractService<WorkspaceCommen
             throw new NotFoundException("WorkspaceComment not found");
         });
         repository.delete(workspaceComment);
+    }
+
+    @Override
+    public Long count() {
+        return repository.count();
     }
 }

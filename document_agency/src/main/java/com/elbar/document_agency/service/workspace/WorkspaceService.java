@@ -12,4 +12,5 @@ import com.elbar.document_agency.service.GenericGLDService;
 import java.util.UUID;
 
 public interface WorkspaceService extends GenericCUDService<WorkspaceCreateDTO, WorkspaceUpdateDTO, UUID>, GenericGLDService<WorkspaceGetDTO, WorkspaceDetailDTO, WorkspaceCriteria, UUID>, BaseService {
+    Long count();
 }

@@ -14,4 +14,6 @@ public interface TemplateCategoryService extends GenericCUDService<TemplateCateg
     TemplateCategoryGetDTO get(UUID code);
 
     List<TemplateCategoryGetDTO> list(TemplateCategoryCriteria criteria);
+
+    Long count();
 }

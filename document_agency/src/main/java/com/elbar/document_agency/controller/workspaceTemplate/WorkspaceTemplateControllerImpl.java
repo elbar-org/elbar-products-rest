@@ -26,16 +26,19 @@ public class WorkspaceTemplateControllerImpl extends AbstractController<Workspac
 
     @Override
     public ResponseEntity<Data<String>> create(WorkspaceTemplateCreateDTO DTO) {
+        service.create(DTO);
         return new ResponseEntity<>(new Data<>("Successfully Created - WorkspaceTemplate"), HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Data<String>> update(WorkspaceTemplateUpdateDTO DTO) {
+        service.update(DTO);
         return new ResponseEntity<>(new Data<>("Successfully Updated - WorkspaceTemplate"), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<Data<String>> delete(UUID code) {
+        service.delete(code);
         return new ResponseEntity<>(new Data<>("Successfully Deleted - WorkspaceTemplate"), HttpStatus.OK);
     }
 
@@ -51,6 +54,11 @@ public class WorkspaceTemplateControllerImpl extends AbstractController<Workspac
 
     @Override
     public ResponseEntity<Data<List<WorkspaceTemplateGetDTO>>> list(WorkspaceTemplateCriteria criteria) {
-        return new ResponseEntity<>(new Data<>(service.list(criteria)), HttpStatus.OK);
+        return new ResponseEntity<>(new Data<>(service.list(criteria), service.count()), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Data<List<WorkspaceTemplateGetDTO>>> getListWithCategoryCode(UUID code) {
+        return new ResponseEntity<>(new Data<>(service.getListWithCategoryCode(code), service.count()), HttpStatus.OK);
     }
 }

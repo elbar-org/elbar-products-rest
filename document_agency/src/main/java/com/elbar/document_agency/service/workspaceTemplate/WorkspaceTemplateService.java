@@ -9,7 +9,12 @@ import com.elbar.document_agency.service.BaseService;
 import com.elbar.document_agency.service.GenericCUDService;
 import com.elbar.document_agency.service.GenericGLDService;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface WorkspaceTemplateService extends GenericCUDService<WorkspaceTemplateCreateDTO, WorkspaceTemplateUpdateDTO, UUID>, GenericGLDService<WorkspaceTemplateGetDTO, WorkspaceTemplateDetailDTO, WorkspaceTemplateCriteria, UUID>, BaseService {
+
+    List<WorkspaceTemplateGetDTO> getListWithCategoryCode(UUID code);
+
+    Long count();
 }

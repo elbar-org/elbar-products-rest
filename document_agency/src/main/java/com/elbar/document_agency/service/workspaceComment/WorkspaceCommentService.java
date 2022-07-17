@@ -13,4 +13,6 @@ public interface WorkspaceCommentService extends GenericGLDService<WorkspaceComm
     void create(WorkspaceCommentCreateDTO DTO);
 
     void delete(UUID code);
+
+    Long count();
 }

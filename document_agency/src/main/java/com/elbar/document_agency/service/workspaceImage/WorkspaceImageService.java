@@ -15,4 +15,6 @@ public interface WorkspaceImageService extends GenericCUDService<WorkspaceImageC
     WorkspaceImageGetDTO get(UUID code);
 
     List<WorkspaceImageGetDTO> list(WorkspaceImageCriteria criteria);
+
+    Long count();
 }

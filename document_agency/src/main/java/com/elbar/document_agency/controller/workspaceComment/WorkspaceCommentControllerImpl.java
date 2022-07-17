@@ -36,7 +36,7 @@ public class WorkspaceCommentControllerImpl extends AbstractController<Workspace
 
     @Override
     public ResponseEntity<Data<List<WorkspaceCommentGetDTO>>> list(WorkspaceCommentCriteria criteria) {
-        return new ResponseEntity<>(new Data<>(service.list(criteria)), HttpStatus.OK);
+        return new ResponseEntity<>(new Data<>(service.list(criteria), service.count()), HttpStatus.OK);
     }
 
     @Override

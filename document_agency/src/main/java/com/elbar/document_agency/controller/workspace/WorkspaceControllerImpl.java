@@ -55,6 +55,6 @@ public class WorkspaceControllerImpl extends AbstractController<WorkspaceService
 
     @Override
     public ResponseEntity<Data<List<WorkspaceGetDTO>>> list(WorkspaceCriteria criteria) {
-        return new ResponseEntity<>(new Data<>(service.list(criteria)), HttpStatus.OK);
+        return new ResponseEntity<>(new Data<>(service.list(criteria), service.count()), HttpStatus.OK);
     }
 }
